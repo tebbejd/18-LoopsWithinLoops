@@ -11,7 +11,7 @@ import rosegraphics as rg
 
 def main():
     """ Calls the other functions to demonstrate them. """
-    run_test_draw_L()
+    # run_test_draw_L()
     run_test_draw_wall_on_right()
 
 
@@ -80,9 +80,30 @@ def draw_L(window, circle, r, c):
     and m and n are small, positive integers.
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
+    for j in range(r):
+        for k in range(3):
+            circle1 = rg.Circle(
+                rg.Point(circle.center.x + 2 * (k * circle.radius), circle.center.y + j * 2 * circle.radius),
+                circle.radius)
+            circle1.fill_color = circle.fill_color
+            circle1.outline_color = circle.fill_color
+            circle1.outline_thickness = circle.outline_thickness
+            circle1.attach_to(window)
+            window.render(.1)
+    circle = circle1
+    for j in range(3):
+        for k in range(c):
+            circle1 = rg.Circle(
+                rg.Point(circle.center.x + 2 * ((k + 1) * circle.radius), circle.center.y - j * 2 * circle.radius),
+                circle.radius)
+            circle1.fill_color = circle.fill_color
+            circle1.outline_color = circle.fill_color
+            circle1.outline_thickness = circle.outline_thickness
+            circle1.attach_to(window)
+            window.render(.1)
 
 
 def run_test_draw_wall_on_right():
@@ -121,9 +142,19 @@ def draw_wall_on_right(rectangle, n, window):
     and n is a small, positive integer.
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
+    rec = rg.Rectangle(rectangle.corner_1, rectangle.corner_2)
+    for j in range(n):
+        for k in range(j + 1):
+            rec.corner_1.move_by(-rectangle.get_width(), 0)
+            rec.corner_2.move_by(-rectangle.get_width(), 0)
+            rec2 = rg.Rectangle(rec.corner_1, rec.corner_2)
+            rec2.attach_to(window)
+            window.render(.1)
+        rec.corner_1 = rg.Point(rectangle.corner_1.x, rectangle.corner_1.y + rectangle.get_height() * (j + 1))
+        rec.corner_2 = rg.Point(rectangle.corner_2.x, rectangle.corner_2.y + rectangle.get_height() * (j + 1))
 
 
 # ----------------------------------------------------------------------
